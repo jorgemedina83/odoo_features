@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Agregar atributo solo lectura-->
+        <record model="ir.ui.view" id="res_partner_form_analytic_account_factoring">
+            <field name="name">Res Partner Analytic Account Factoring</field>
+            <field name="model">res.partner</field>
+            <field name='inherit_id' ref='base.view_partner_form'/>
+            <field name="arch" type="xml">
+                <notebook position="inside">					
+                    <page string='Credit Bureau' groups="sacsa_features.group_credit_bureau">
+                        <group>
+                            <field name='type_person'/>
+                            <field name="credit_bureau"/>
+                            <field name="date_bureau"/>
+                            <field name="date_due_bureau"/>
+                            <field name="type_bureau"/>
+                            <field name="debt_bureau" />                            
+                        </group>
+						<group>
+                            <field name="res_partner_bureau_ids" readonly="type_bureau in ('automatic')">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="comment"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record id="res_partner_form_financed" model="ir.ui.view">
+            <field name="name">Res Partner Financed</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='credit']" position="before">
+                    <field name ='financed'/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
